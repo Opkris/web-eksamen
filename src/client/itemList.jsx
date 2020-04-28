@@ -141,7 +141,6 @@ export class ItemList extends React.Component{
             <div>
 
                 <div>
-                    <h2>Sweet Escape Pokèmon</h2>
                     {table_monday}
                 </div>
                 {user ? (

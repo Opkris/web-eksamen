@@ -4,145 +4,83 @@
  */
 
 // map from ids to meals
-const meals = new Map();
-const drinks = new Map();
+const pokemons = new Map();
 
 //used to create unique ids
 let counter = 0;
 
-function initWithSomeMeals(){
+function initPokemons(){
 
-    meals.clear();
+    pokemons.clear();
     counter = 0;
-    //15 objects
-    createNewMeal("monday", "Bulbasaur", "99,-", "");
-    createNewMeal("monday", "Ivysaur", "89,-", "");
-    createNewMeal("monday", "Venusaur", "89,-", "");
+    // Total 18 objects
+    createPokemon("001", "Bulbasaur", "99,-", "Grass & Poison");
+    createPokemon("002", "Ivysaur", "189,-", "Grass & Poison");
+    createPokemon("003", "Venusaur", "1089,-", "Grass & Poison");
 
-    createNewMeal("tuesday", "Charmander", "99,-", "");
-    createNewMeal("tuesday", "Charmelon", "189,-", "");
-    createNewMeal("tuesday", "Charizard", "209,-", "");
+    createPokemon("004", "Charmander", "99,-", "Fire");
+    createPokemon("005", "Charmelon", "189,-", "Fire");
+    createPokemon("006", "Charizard", "1089,-", "Fire / Flying");
 
-    createNewMeal("wednesday", "Squirtle", "209,-", "");
-    createNewMeal("wednesday", "Wartortle", "189,-", "");
-    createNewMeal("wednesday", "Blastoise", "299,-", "");
+    createPokemon("007", "Squirtle", "99,-", "Water");
+    createPokemon("008", "Wartortle", "189,-", "Water");
+    createPokemon("009", "Blastoise", "1089,-", "Water");
 
-    createNewMeal("thursday", "Caterpie", "189,-", "");
-    createNewMeal("thursday", "Metapod", "149,-", "");
-    createNewMeal("thursday", "Butterfree", "139,-", "");
+    createPokemon("010", "Caterpie", "99,-", "Bug");
+    createPokemon("011", "Metapod", "189,-", "Bug");
+    createPokemon("012", "Butterfree", "1089,-", "bug / Flying");
 
-    createNewMeal("friday", "Weedle", "299,-", "");
-    createNewMeal("friday", "Kakuna", "129,-", "");
-    createNewMeal("friday", "Beedrill", "89,-", "");
+    createPokemon("013", "Weedle", "99,-", "Bug");
+    createPokemon("014", "Kakuna", "189,-", "Bug & Poison");
+    createPokemon("015", "Beedrill", "1089,-", "Bug & Poison");
 
+    createPokemon("016", "pidgey", "99,-", "Normal / Flying");
+    createPokemon("017", "Pidgeotto", "189,-", "Normal / Flying");
+    createPokemon("018", "Pidgeot", "1089,-", "Normal / Flying");
 }
 
-function initWithSomeDrinks(){
-
-    drinks.clear();
-    counter = 0;
-
-    createNewDrink("Water", "0,-");
-    createNewDrink("Coffee", "12,-");
-    createNewDrink("Coffee latte", "30,-");
-    createNewDrink("Irish latte", "59,-");
-    createNewDrink("Warm kakao", "30,-");
-    createNewDrink("Tea", "12,-");
-    createNewDrink("Burn", "30,-");
-    createNewDrink("Red Bull", "28,-");
-}
-
-function createNewMeal(day, name, price, allergies){
+function createPokemon(pokedex, name, price, type){
 
     const id = "" + counter;
     counter++;
 
-    const meal = {
+    const pokemon = {
         id: id,
-        day: day,
+        day: pokedex,
         name: name,
         price: price,
-        allergies: allergies
+        allergies: type
     };
 
-    meals.set(id, meal);
+    pokemons.set(id, pokemon);
 
     return id;
 }
 
-function createNewDrink(name, price){
+function deletePokemon(id){
 
-    const id = "" + counter;
-    counter++;
-
-    const drink = {
-        id: id,
-        name: name,
-        price: price,
-    };
-
-    drinks.set(id, drink);
-
-    return id;
+    return pokemons.delete(id);
 }
 
-function deleteMeal(id){
+function getPokemon(id){
 
-    return meals.delete(id);
+    return pokemons.get(id);
 }
 
-function getMeal(id){
+function getAllPokemon(){
 
-    return meals.get(id);
+    return Array.from(pokemons.values());
 }
 
-function getAllMeals(){
+function updatePokemon(pokemon){
 
-    return Array.from(meals.values());
-}
-
-function updateMeal(meal){
-
-    if(! meals.has(meal.id)){
+    if(! pokemons.has(pokemon.id)){
         return false;
     }
 
-    meals.set(meal.id, meal);
-    return true;
-}
-/**************************************************/
-/******************** Drink ***********************/
-/**************************************************/
-function deleteDrink(id){
-
-    return drinks.delete(id);
-}
-
-function getDrink(id){
-
-    return drinks.get(id);
-}
-
-function getAllDrinks(){
-
-    return Array.from(drinks.values());
-}
-
-function updateDrink(drink){
-
-    if(! drinks.has(drink.id)){
-        return false;
-    }
-
-    drinks.set(drink.id, drink);
+    pokemons.set(pokemon.id, pokemon);
     return true;
 }
 
-/**************************************************/
-/**************************************************/
-/**************************************************/
-
-
-module.exports = {initWithSomeMeals: initWithSomeMeals, getAllMeals: getAllMeals,
-    createNewMeal: createNewMeal, getMeal: getMeal, updateMeal: updateMeal, deleteMeal: deleteMeal, initWithSomeDrinks: initWithSomeDrinks,
-getAllDrinks: getAllDrinks, createNewDrink: createNewDrink, getDrink: getDrink, updateDrink: updateDrink, deleteDrink: deleteDrink};
+module.exports = {initPokemon: initPokemons, getAllMeals: getAllPokemon, createNewMeal: createPokemon,
+    getMeal: getPokemon, updateMeal: updatePokemon, deleteMeal: deletePokemon};

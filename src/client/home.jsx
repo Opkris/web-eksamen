@@ -10,9 +10,8 @@ export class Home extends React.Component {
         return (
             <div>
 
-                <div>
+                <h2>Pokèmon Available</h2>
                     <ItemList/>
-                </div>
 
                 <div className="chat">
                     <h2>Chat</h2>
