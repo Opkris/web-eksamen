@@ -39,6 +39,7 @@ function createUser(id, password){
         myOwnPokemons: {
             pokedex: "001",
             name: "Bulbasaur",
+            balance: 1000,
             price: "99",
             type: "grass & Poison",
             master: "",
