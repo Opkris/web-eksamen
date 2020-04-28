@@ -240,10 +240,6 @@ function deletePokemon(id){
     return pokemonsArray.splice(id, 1)
 }
 
-function getPokemon(id){
-
-    return pokemons.get(id);
-}
 
 function getAllPokemon(){
     return Array.from(pokemonsArray.values());
@@ -312,4 +308,4 @@ function getRandomPokemons(numberOfPokemons){
 
 
 module.exports = {initPokemon: initPokemons, getAllPokemons: getAllPokemon, createPokemon: createPokemon,
-    getPokemon: getPokemon, updatePokemon: updatePokemon, deletePokemon: deletePokemon, getSomePokemon: getSomePokemon, getMyPokemon: getMyPokemon};
+    updatePokemon: updatePokemon, deletePokemon: deletePokemon, getSomePokemon: getSomePokemon, getMyPokemon: getMyPokemon};

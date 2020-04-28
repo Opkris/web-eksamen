@@ -56,9 +56,6 @@ export class UserSite extends React.Component {
 
     render() {
 
-        const userPokemon = getPokemon();
-        console.log(" YESS!!!!!!" + userPokemon);
-        console.log("Hello World");
         let tableUser;
 
         if (this.state.error !== null) {
