@@ -14,10 +14,6 @@ function getUser(id){
     return users.get(id);
 }
 
-function getPokemon() {
-    console.log("Hello World");
-return users.myOwnPokemons
-}
 
 function verifyUser(id, password){
 
@@ -74,4 +70,4 @@ function resetAllUsers(){
 // }
 
 
-module.exports = {getUser, verifyUser, createUser, resetAllUsers, getPokemon: getPokemon};
+module.exports = {getUser, verifyUser, createUser, resetAllUsers};

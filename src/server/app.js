@@ -13,6 +13,8 @@ const app = express();
 const ews = require('express-ws')(app);
 const WS = require('ws');
 
+
+Users.createUser("Kristoffer", "1");
 //to handle JSON payloads
 app.use(bodyParser.json());
 
