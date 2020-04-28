@@ -26,7 +26,7 @@ function verifyUser(id, password){
     return user.password === password;
 }
 
-function createUser(id, password){
+function createUser(id, password,){
 
     if(getUser(id)){
         return false;
@@ -54,6 +54,7 @@ function createUser(id, password){
     return true;
 }
 
+
 function resetAllUsers(){
     users.clear();
 }
@@ -73,4 +74,33 @@ function resetAllUsers(){
 // }
 
 
-module.exports = {getUser, verifyUser, createUser, resetAllUsers};
+
+function transferMoney(senderId, receiverId, amount){
+
+    console.log("Sender" + senderId + " receiver: " + receiverId + " amount: " + amount);
+    amount = parseInt(amount);
+
+    if(isNaN(amount) || amount <= 0 || senderId === receiverId){
+        return false;
+    }
+
+    const sender = users.get(senderId);
+    const receiver = users.get(receiverId);
+
+    if(!sender || !receiver){
+        return false;
+    }
+
+    if(sender.balance < amount){
+        return false;
+    }
+
+    sender.balance -= amount;
+    receiver.balance += amount;
+
+    return true;
+}
+
+
+
+module.exports = {getUser, verifyUser, createUser, resetAllUsers, transferMoney};

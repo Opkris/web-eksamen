@@ -1,7 +1,6 @@
 import React from "react";
-import {Link} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 import {Chat} from "./chat";
-import {getPokemon} from"../server/db/users"
 
 
 export class UserSite extends React.Component {
@@ -11,6 +10,7 @@ export class UserSite extends React.Component {
 
         this.state = {
             pokemons: null,
+            balance: null,
             error: null,
         };
     }
@@ -19,7 +19,6 @@ export class UserSite extends React.Component {
         this.fetchPokemon();
         if (this.props.user) {
             this.props.fetchAndUpdateUserInfo();
-
         }
     }
 
@@ -54,8 +53,9 @@ export class UserSite extends React.Component {
         }
     }
 
-    render() {
 
+
+    render() {
         let tableUser;
 
         if (this.state.error !== null) {
@@ -63,7 +63,7 @@ export class UserSite extends React.Component {
         } else if (this.state.pokemons === null || this.state.pokemons.length === 0) {
             tableUser = <p>There is no Menu registered in the database</p>;
         } else {
-            console.log("Hello World");
+            console.log("userSite.jsx, Hello World " + this.state.name);
              tableUser = <div>
                 <table className="allMeals">
 
@@ -95,8 +95,8 @@ export class UserSite extends React.Component {
         return (
 
             <div>
+                <p>balance: {this.state.balance}</p>
                 <h2>Pokèmon UserSite</h2>
-
                     <div>
                         <Link to={"/lootBox"}>
                             <button className="btn btnM">
@@ -114,3 +114,5 @@ export class UserSite extends React.Component {
         );// end return
     }// end render
 }// end class
+
+export default withRouter(UserSite);

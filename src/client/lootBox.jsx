@@ -9,6 +9,10 @@ export class LootBox extends React.Component {
         super(props);
 
         this.state = {
+            // sendTo: "",
+            amountToSend: "",
+            balance: null,
+            errorMsg: null,
             pokemons: null,
             error: null,
         };
@@ -16,11 +20,106 @@ export class LootBox extends React.Component {
 
     componentDidMount() {
         this.fetchPokemon();
+        this.updateBalance();
         if (this.props.user) {
             this.props.fetchAndUpdateUserInfo();
         }
     }
+// ****************************************************************
+// ****************************************************************
+// ****************************************************************
+//
+//     onSendToChange = (event) => {
+//         this.setState({ sendTo: event.target.value });
+//     };
 
+    onAmountToSendChange = (event) => {
+        this.setState({ amountToSend: event.target.value });
+    };
+
+    transferMoney = async () => {
+        if (!this.props.userId) {
+            return;
+        }
+
+        const url = "/api/transfers";
+
+        const payload = { to: this.state.sendTo, amount: this.state.amountToSend };
+
+        let response;
+
+        try {
+            response = await fetch(url, {
+                method: "post",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload)
+            });
+        } catch (err) {
+            this.setState({ errorMsg: "Failed to connect to server: " + err });
+            return;
+        }
+
+        if (response.status === 401) {
+            this.setState({ errorMsg: "Invalid userId/password" });
+            return;
+        }
+
+        if (response.status !== 204) {
+            this.setState({
+                errorMsg:
+                    "Error when connecting to server: status code " + response.status
+            });
+            return;
+        }
+
+        this.updateBalance();
+    };
+
+    async updateBalance() {
+        const url = "/api/user";
+
+        let response;
+
+        try {
+            response = await fetch(url);
+        } catch (err) {
+            this.setState({
+                errorMsg: "ERROR when retrieving balance: " + err,
+                balance: null
+            });
+            return;
+        }
+
+        if (response.status === 401) {
+            //we are not logged in, or session did timeout
+            this.props.updateLoggedInUser(null);
+            return;
+        }
+
+        if (response.status === 200) {
+            const payload = await response.json();
+
+            this.setState({
+                errorMsg: null,
+                balance: payload.balance
+            });
+
+            this.props.updateLoggedInUser(payload.userId);
+        } else {
+            this.setState({
+                errorMsg: "Issue with HTTP connection: status code " + response.status,
+                balance: null
+            });
+        }
+    }
+
+
+
+// ****************************************************************
+// ****************************************************************
+// ****************************************************************
 
     async fetchPokemon() {
 
@@ -87,6 +186,39 @@ export class LootBox extends React.Component {
         return (
 
             <div>
+
+                <div className="signupArea">
+                    <h2>Your currently have: {this.state.balance} Pokèmon Dollars</h2>
+                    <h2>Your new have: {this.state.balance -= 500} Pokèmon Dollars</h2>
+                    <h2>Your new have: {this.state.balance -= 200} Pokèmon Dollars</h2>
+
+                    <p>Transfer money</p>
+
+                    <form method={"post"} action={"/api/transfers"}>
+                        {/*To:{" "}*/}
+                        {/*<input*/}
+                        {/*    type="text"*/}
+                        {/*    name="to"*/}
+                        {/*    value={this.state.sendTo}*/}
+                        {/*    onChange={this.onSendToChange}*/}
+                        {/*    className="lastInput"*/}
+                        {/*/>*/}
+                        <br />
+                        Amount:{" "}
+                        <input
+                            type="text"
+                            name="amount"
+                            value={this.state.amountToSend}
+                            onChange={this.onAmountToSendChange}
+                            className="lastInput"
+                        />
+                        <br />
+                        <button className="transBtn btn btnT">Transfer (Form)</button>
+                    </form>
+                </div>
+
+
+
                 <h2>Pokèmon loot: </h2>
                 <div>
                     <Link to={"/userSite"}>

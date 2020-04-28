@@ -80,7 +80,6 @@ export class Home extends React.Component {
     };
 
     render() {
-
         let table;
 
         if (this.state.error !== null) {
@@ -117,7 +116,6 @@ export class Home extends React.Component {
 
             <div>
                 <div>
-
                     <h2>Pokèmon Available</h2>
                     {table}
                 </div>

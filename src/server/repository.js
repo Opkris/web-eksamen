@@ -18,21 +18,30 @@ const pokemonsArray = [
         pokedex: "001",
         name: "Bulbasaur",
         price: "99",
-        type: "grass & Poison",
+        type: [
+            "Grass",
+            " Poison"
+        ],
         master: "",
     },
     {
         pokedex: "002",
         name: "Ivysaur",
         price: "189",
-        type: "grass & Poison",
+        type: [
+            "Grass",
+            " Poison"
+        ],
         master: "",
     },
     {
         pokedex: "003",
         name: "Venusaur",
         price: "1089",
-        type: "grass & Poison",
+        type: [
+            "Grass",
+            " Poison"
+        ],
         master: "",
     },
     {
@@ -59,7 +68,7 @@ const pokemonsArray = [
         price: 1089,
         type: [
             "Fire",
-            "Flying"
+            " Flying"
         ],
         master: "",
     },
@@ -114,7 +123,7 @@ const pokemonsArray = [
         price: 99,
         type: [
             "Bug",
-            "Flying"
+            " Flying"
         ],
         master: "",
     },
@@ -133,7 +142,7 @@ const pokemonsArray = [
         price: 99,
         type: [
             "Bug",
-            "Poison"
+            " Poison"
         ],
         master: "",
     },
@@ -143,7 +152,7 @@ const pokemonsArray = [
         price: 99,
         type: [
             "Bug",
-            "Poison"
+            " Poison"
         ],
         master: "",
     },
@@ -153,7 +162,7 @@ const pokemonsArray = [
         price: 99,
         type: [
             "Normal",
-            "Flying"
+            " Flying"
         ],
         master: "",
     },
@@ -163,7 +172,7 @@ const pokemonsArray = [
         price: 99,
         type: [
             "Normal",
-            "Flying"
+            " Flying"
         ],
         master: "",
     },
@@ -173,7 +182,7 @@ const pokemonsArray = [
         price: 99,
         type: [
             "Normal",
-            "Flying"
+            " Flying"
         ],
         master: "",
     },

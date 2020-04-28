@@ -138,6 +138,12 @@ th{
     height: 34px;
     margin-left: 40%;
 }
+.btnT{
+    width: 150px;
+    height: 50px;
+    margin-left: 40%;
+    text-align: center;
+}
 
 .allMeals {
     width: 100%;
@@ -204,4 +210,20 @@ th{
 }
 .btnChat{
     height: 30px;
+}
+.signupArea{
+    text-align: center;
+    padding-left: 20%;
+}
+
+
+.lastInput {
+    margin-bottom: 5px;
+}
+
+.transBtn {
+    font-size: 1em;
+    padding: 5px;
+    margin: 5px;
+    width: 115px;
 }

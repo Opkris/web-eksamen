@@ -19,7 +19,7 @@ class App extends React.Component {
 
         this.state = {
             user: null,
-            userCount: 1
+            userCount: 1,
         };
     }
 
@@ -35,14 +35,12 @@ class App extends React.Component {
         this.socket = new WebSocket(protocol + "//" + window.location.host);
 
         this.socket.onmessage = (event => {
-
             const dto = JSON.parse(event.data);
 
             if (!dto || !dto.userCount) {
                 this.setState({userCount: "ERROR"});
                 return;
             }
-
             this.setState({userCount: dto.userCount});
         });
     }
@@ -51,8 +49,9 @@ class App extends React.Component {
         this.socket.close();
     }
 
-    fetchAndUpdateUserInfo = async () => {
 
+    fetchAndUpdateUserInfo = async () => {
+        console.log("index.jsx, inside fetchAndUpdateUserInfo..." );
         const url = "/api/user";
 
         let response;
@@ -68,12 +67,13 @@ class App extends React.Component {
 
         if (response.status === 401) {
             //that is ok
+            console.log("index.jsx, fetchAndUpdateUserInfo status 401...");
             this.updateLoggedInUser(null);
             return;
         }
 
         if (response.status !== 200) {
-            //TODO here could have some warning message in the page.
+            console.log("index.jsx, fetchAndUpdateUserInfo status 200...")
         } else {
             const payload = await response.json();
             this.updateLoggedInUser(payload);
@@ -83,7 +83,6 @@ class App extends React.Component {
     updateLoggedInUser = (user) => {
         this.setState({user: user});
     };
-
 
     notFound() {
         return (
