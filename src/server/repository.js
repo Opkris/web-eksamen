@@ -15,23 +15,25 @@ function initWithSomeMeals(){
     meals.clear();
     counter = 0;
     //15 objects
-    createNewMeal("monday", "Grillet Kyllingfilet", "99,-", "M, S, GB, GH");
-    createNewMeal("monday", "Kyllinglårbiff", "89,-", "S, GH, SE, M, S, GB");
-    createNewMeal("monday", "Nachos", "89,-", "M");
-    createNewMeal("tuesday", "Grillet laks", "99,-", "S, M, SF, E, SN");
-    createNewMeal("tuesday", "Chicken burger", "189,-", "GH, E, GR, SM, S, SE, SN, M");
+    createNewMeal("monday", "Bulbasaur", "99,-", "");
+    createNewMeal("monday", "Ivysaur", "89,-", "");
+    createNewMeal("monday", "Venusaur", "89,-", "");
 
-    createNewMeal("tuesday", "Steakburger", "209,-", "SE, GH, M, S, GR, E");
-    createNewMeal("wednesday", "Spareribs", "209,-", "GH, S, SE, E, SN, M");
-    createNewMeal("wednesday", "Farmer's choice", "189,-", "SE, M, S, GB, GH");
-    createNewMeal("wednesday", "All you can eat", "299,-", "**");
-    createNewMeal("thursday", "Quorn burger", "189,-", "E, M, S, GH, SE, SN, SM, GR");
+    createNewMeal("tuesday", "Charmander", "99,-", "");
+    createNewMeal("tuesday", "Charmelon", "189,-", "");
+    createNewMeal("tuesday", "Charizard", "209,-", "");
 
-    createNewMeal("thursday", "Biffsalat", "149,-", "S, M, GH, GB, GR, E, SN");
-    createNewMeal("thursday", "Gratinerte chevre", "139,-", "N, SF, SN, M, GH, SM, S, GB, GR");
-    createNewMeal("friday", "Bacon/cheeseburger", "299,-", "M, S, GH, SE, SN, SM, GR, E");
-    createNewMeal("friday", "Cæsarsalat", "129,-", "S, GM, M, N, SM, GB, E, F, SN");
-    createNewMeal("friday", "Cheesecake", "89,-", "M, E, GH, N, NH");
+    createNewMeal("wednesday", "Squirtle", "209,-", "");
+    createNewMeal("wednesday", "Wartortle", "189,-", "");
+    createNewMeal("wednesday", "Blastoise", "299,-", "");
+
+    createNewMeal("thursday", "Caterpie", "189,-", "");
+    createNewMeal("thursday", "Metapod", "149,-", "");
+    createNewMeal("thursday", "Butterfree", "139,-", "");
+
+    createNewMeal("friday", "Weedle", "299,-", "");
+    createNewMeal("friday", "Kakuna", "129,-", "");
+    createNewMeal("friday", "Beedrill", "89,-", "");
 
 }
 

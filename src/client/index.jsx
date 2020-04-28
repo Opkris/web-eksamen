@@ -10,7 +10,7 @@ import {Home} from "./home";
 import Login from "./signUp-login/login";
 import SignUp from "./signUp-login/signup";
 import HeaderBar from "./headerbar";
-import {Chat} from "./Chat";
+import {Chat} from "./chat";
 
 class App extends React.Component {
 
