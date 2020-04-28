@@ -36,10 +36,10 @@ function createUser(id, password){
     const user = {
         id: id,
         password: password,
+        balance: 1000,
         myOwnPokemons: {
             pokedex: "001",
             name: "Bulbasaur",
-            balance: 1000,
             price: "99",
             type: "grass & Poison",
             master: "",
@@ -47,6 +47,8 @@ function createUser(id, password){
     };
 
     console.log(user.myOwnPokemons);
+    console.log(user.id);
+    console.log(user.balance);
 
     users.set(id, user);
     return true;
