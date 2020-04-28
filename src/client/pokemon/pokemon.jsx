@@ -11,7 +11,8 @@ class Pokemon extends React.Component {
             pokedex: this.props.pokedex ? this.props.pokedex : "",
             name: this.props.name ? this.props.name : "",
             price: this.props.price ? this.props.price : "",
-            type: this.props.type ? this.props.type : ""
+            type: this.props.type ? this.props.type : "",
+            master: this.props.master ? this.props.master : ""
         };
 
         this.ok = this.props.ok ? this.props.ok : "Ok";
@@ -33,6 +34,7 @@ class Pokemon extends React.Component {
             this.state.name,
             this.state.price,
             this.state.type,
+            this.state.master,
             this.props.pokemonId);
 
         /*
@@ -42,7 +44,7 @@ class Pokemon extends React.Component {
             otherwise, should issue an error
          */
 
-        if(completed) {
+        if (completed) {
             /*
                 this will change the address bar, and so trigger
                 a re-rendering of React-Router
@@ -68,6 +70,10 @@ class Pokemon extends React.Component {
 
     onTypeChange = (event) => {
         this.setState({type: event.target.value});
+    };
+
+    onMasterChange = (event) => {
+        this.setState({master: event.target.value});
     };
 
     render() {
@@ -105,8 +111,18 @@ class Pokemon extends React.Component {
                         className="dishInput"
                     />
 
+                    <div className="inputTitle">Master:</div>
+                    <input
+                        placeholder={"Master of the pokèmon.."}
+                        value={this.state.master}
+                        onChange={this.onMasterChange}
+                        className="dishInput"
+                    />
+
                     <button type="submit" className={"btn btnM"}>{this.ok}</button>
-                    <Link to={"/"}><button className={"btn btnM"}>Cancel</button></Link>
+                    <Link to={"/"}>
+                        <button className={"btn btnM"}>Cancel</button>
+                    </Link>
                 </form>
             </div>
         );

@@ -14,6 +14,11 @@ function getUser(id){
     return users.get(id);
 }
 
+function getPokemon() {
+    console.log("Hello World");
+return users.myOwnPokemons
+}
+
 function verifyUser(id, password){
 
     const user = getUser(id);
@@ -31,12 +36,20 @@ function createUser(id, password){
         return false;
     }
 
+    console.log("user created");
     const user = {
         id: id,
         password: password,
-        victories: 0,
-        defeats: 0
+        myOwnPokemons: {
+            pokedex: "001",
+            name: "Bulbasaur",
+            price: "99",
+            type: "grass & Poison",
+            master: "",
+        },
     };
+
+    console.log(user.myOwnPokemons);
 
     users.set(id, user);
     return true;
@@ -46,19 +59,19 @@ function resetAllUsers(){
     users.clear();
 }
 
-function reportEndOfMatch(userId, isVictory){
+// function reportEndOfMatch(userId, isVictory){
+//
+//     const user = getUser(userId);
+//     if(! user){
+//         throw "Invalid userId: " + userId;
+//     }
+//
+//     if(isVictory) {
+//         user.victories++;
+//     } else {
+//         user.defeats++;
+//     }
+// }
 
-    const user = getUser(userId);
-    if(! user){
-        throw "Invalid userId: " + userId;
-    }
 
-    if(isVictory) {
-        user.victories++;
-    } else {
-        user.defeats++;
-    }
-}
-
-
-module.exports = {getUser, verifyUser, createUser, resetAllUsers, reportEndOfMatch};
+module.exports = {getUser, verifyUser, createUser, resetAllUsers, getPokemon: getPokemon};

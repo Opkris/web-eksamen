@@ -1,9 +1,10 @@
 import React from "react";
 import {Link} from 'react-router-dom';
 import {Chat} from "./chat";
+import {getPokemon} from"../server/db/users"
 
 
-export class Home extends React.Component {
+export class UserSite extends React.Component {
 
     constructor(props) {
         super(props);
@@ -18,15 +19,13 @@ export class Home extends React.Component {
         this.fetchPokemon();
         if (this.props.user) {
             this.props.fetchAndUpdateUserInfo();
+
         }
     }
 
-
     async fetchPokemon() {
 
-        let url;
-        url = "/api/Pokemons";
-
+        const url = "/api/myPokemons";
         let response;
         let payload;
 
@@ -55,72 +54,60 @@ export class Home extends React.Component {
         }
     }
 
-
-    deletePokemon = async (id) => {
-
-        const url = "/api/pokemons/" + id;
-
-        let response;
-
-        try {
-            response = await fetch(url, {method: "delete"});
-        } catch (err) {
-            alert("Delete operation failed: " + err);
-            return false;
-        }
-
-        if (response.status !== 204) {
-            alert("Delete operation failed: status code " + response.status);
-            return false;
-        }
-
-        this.fetchPokemon();
-
-        return true;
-    };
-
     render() {
 
-        let table;
+        const userPokemon = getPokemon();
+        console.log(" YESS!!!!!!" + userPokemon);
+        console.log("Hello World");
+        let tableUser;
 
         if (this.state.error !== null) {
-            table = <p>{this.state.error}</p>;
+            tableUser = <p>{this.state.error}</p>;
         } else if (this.state.pokemons === null || this.state.pokemons.length === 0) {
-            table = <p>There is no Menu registered in the database</p>;
+            tableUser = <p>There is no Menu registered in the database</p>;
         } else {
-
-            table = <div>
+            console.log("Hello World");
+             tableUser = <div>
                 <table className="allMeals">
+
                     <thead>
                     <tr>
                         <th>Pokèmon's</th>
                         <th>Price</th>
                         <th>Type</th>
+                        {/*<th>Options</th>*/}
                     </tr>
                     </thead>
+
                     <tbody>
+
                     {this.state.pokemons.map(m =>
-                        <tr key={"key_" + m.id} className="oneMeal">
-                            <td>{m.name}</td>
-                            <td>{m.price}</td>
-                            <td>{m.type}</td>
-                        </tr>
-                    )}
+                            <tr key={"key_" + m.id} className="oneMeal">
+                                <td>{m.name}</td>
+                                <td>{m.price}</td>
+                                <td>{m.type}</td>
+                            </tr>
+                        )}
                     </tbody>
                 </table>
 
             </div>; // end table
+
         }
 
         return (
 
-
             <div>
-                <div>
+                <h2>Pokèmon UserSite</h2>
 
-                    <h2>Pokèmon Available</h2>
-                    {table}
-                </div>
+                    <div>
+                        <Link to={"/lootBox"}>
+                            <button className="btn btnM">
+                                <i className="fas fa-box"></i>
+                            </button>
+                        </Link>
+                    </div>
+                {tableUser}
                 <div className="chat">
                     <h2>Chat</h2>
                     <Chat/>

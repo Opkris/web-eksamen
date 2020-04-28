@@ -36,8 +36,8 @@ export class HeaderBar extends React.Component {
       <div className="msgDiv">
 
         <h3 className="notLoggedInMsg">
-          Welcome {userId}
-          !!!
+          Trainer {userId}
+          !
         </h3>
 
         <div className="btn btnPartHeader" onClick={this.doLogout} id="logoutBtnId">

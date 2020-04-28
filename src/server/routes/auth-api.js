@@ -12,7 +12,7 @@ router.post('/login', passport.authenticate('local'), (req, res) => {
 
 router.post('/signup', function (req, res) {
 
-    const created = Users.createUser(req.body.userId, req.body.password);
+    const created = Users.createUser(req.body.userId, req.body.password, req.body.myOwnPokemons);
 
     if (!created) {
         res.status(400).send();

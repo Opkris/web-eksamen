@@ -90,7 +90,7 @@ th{
     text-align: center;
     color: #ddc7ad;
     size: 100px;
-    font-size: 90px;
+    font-size: 50px;
     margin-left: 5%;
     height: 50px;
 }
@@ -142,7 +142,6 @@ th{
 .allMeals {
     width: 100%;
     margin-top: 30px;
-    padding-left: 20%;
     text-align: center;
     font-size: 20px;
     color: white;

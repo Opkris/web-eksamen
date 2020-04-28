@@ -1,14 +1,16 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom'
+import pokemon from "../pokemon/pokemon";
 
-export class SignUp extends React.Component{
+export class SignUp extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.state = {
             userId: "",
             password: "",
+            myOwnPokemons: [],
             confirm: "",
             errorMsg: null
         };
@@ -28,16 +30,16 @@ export class SignUp extends React.Component{
 
     doSignUp = async () => {
 
-        const {userId, password, confirm} = this.state;
+        const {userId, password, pokemons, confirm} = this.state;
 
-        if(confirm !== password){
+        if (confirm !== password) {
             this.setState({errorMsg: "Passwords do not match"});
             return;
         }
 
         const url = "/api/signup";
 
-        const payload = {userId: userId, password: password};
+        const payload = {userId: userId, password: password, pokemons: pokemons};
 
         let response;
 
@@ -50,39 +52,39 @@ export class SignUp extends React.Component{
                 body: JSON.stringify(payload)
             });
         } catch (err) {
-            this.setState({errorMsg: "Failed to connect to server: "+ err});
+            this.setState({errorMsg: "Failed to connect to server: " + err});
             return;
         }
 
 
-        if(response.status === 400){
+        if (response.status === 400) {
             this.setState({errorMsg: "Invalid userId/password"});
             return;
         }
 
-        if(response.status !== 201){
-            this.setState({errorMsg: "Error when connecting to server: status code "+ response.status});
+        if (response.status !== 201) {
+            this.setState({errorMsg: "Error when connecting to server: status code " + response.status});
             return;
         }
 
         this.setState({errorMsg: null});
         await this.props.fetchAndUpdateUserInfo();
-        this.props.history.push('/');
+        this.props.history.push('/userSite');
     };
 
-    render(){
+    render() {
 
         let error = <div></div>;
-        if(this.state.errorMsg){
+        if (this.state.errorMsg) {
             error = <div className="errorMsg"><p>{this.state.errorMsg}</p></div>
         }
 
         let confirmMsg = "Ok";
-        if(this.state.confirm !== this.state.password){
-           confirmMsg = "Not matching";
+        if (this.state.confirm !== this.state.password) {
+            confirmMsg = "Not matching";
         }
 
-        return(
+        return (
             <div className="center">
                 <div>
                     <p>User Id:</p>
@@ -100,6 +102,7 @@ export class SignUp extends React.Component{
                            id="passwordInput"
                     />
                 </div>
+
                 <div>
                     <p>Confirm:</p>
                     <input type="password"
@@ -107,6 +110,7 @@ export class SignUp extends React.Component{
                            onChange={this.onConfirmChange}
                            id="confirmInput"
                     />
+
                     <div>{confirmMsg}</div>
                 </div>
 

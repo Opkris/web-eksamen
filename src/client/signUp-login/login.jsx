@@ -10,6 +10,7 @@ export class Login extends React.Component{
         this.state = {
             userId: "",
             password: "",
+            myOwnPokemons: "",
             errorMsg: null
         };
     }
@@ -20,6 +21,9 @@ export class Login extends React.Component{
 
     onPasswordChange = (event) => {
         this.setState({password: event.target.value});
+    };
+    onPokemonChange = (event) => {
+        this.setState({myOwnPokemons: event.target.value});
     };
 
     doLogIn = async () => {
@@ -57,7 +61,7 @@ export class Login extends React.Component{
 
         this.setState({errorMsg: null});
         await this.props.fetchAndUpdateUserInfo();
-        this.props.history.push('/');
+        this.props.history.push('/userSite');
     };
 
 

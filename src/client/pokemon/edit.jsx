@@ -20,7 +20,7 @@ export class Edit extends React.Component{
 
     componentDidMount(){
         if(this.state.error === null) {
-            this.fetchPokemons();
+            this.fetchPokemons()
         }
     }
 
@@ -57,12 +57,12 @@ export class Edit extends React.Component{
     }
 
 
-    onOk = async (pokedex, name, price, type, id) => {
+    onOk = async (pokedex, name, price, type, master, id) => {
 
 
         const url = "/api/pokemons/"+id;
 
-        const payload = {id, pokedex, name, price, type};
+        const payload = {id, pokedex, name, price, type, master};
 
         let response;
 
@@ -104,6 +104,7 @@ export class Edit extends React.Component{
                     name={this.state.pokemon.name}
                     price={this.state.pokemon.price}
                     type={this.state.pokemon.type}
+                    master={this.state.pokemon.master}
                     pokemonId={this.pokemonId}
                     ok={"Update"}
                     okCallback={this.onOk}

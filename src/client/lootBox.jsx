@@ -1,8 +1,9 @@
 import React from "react";
-import {Link, withRouter} from "react-router-dom";
+import {Link} from 'react-router-dom';
 
-export class ItemList extends React.Component {
 
+
+export class LootBox extends React.Component {
 
     constructor(props) {
         super(props);
@@ -18,13 +19,12 @@ export class ItemList extends React.Component {
         if (this.props.user) {
             this.props.fetchAndUpdateUserInfo();
         }
-
     }
 
 
     async fetchPokemon() {
 
-        const url = "/api/pokemons";
+        const url = "/api/randomPokemons";
 
         let response;
         let payload;
@@ -54,50 +54,22 @@ export class ItemList extends React.Component {
         }
     }
 
-
-    deletePokemon = async (id) => {
-
-        const url = "/api/pokemons/" + id;
-
-        let response;
-
-        try {
-            response = await fetch(url, {method: "delete"});
-        } catch (err) {
-            alert("Delete operation failed: " + err);
-            return false;
-        }
-
-        if (response.status !== 204) {
-            alert("Delete operation failed: status code " + response.status);
-            return false;
-        }
-
-        this.fetchPokemon();
-
-        return true;
-    };
-
     render() {
 
-        let table;
-
+        let tableUser;
 
         if (this.state.error !== null) {
-            table = <p>{this.state.error}</p>;
+            tableUser = <p>{this.state.error}</p>;
         } else if (this.state.pokemons === null || this.state.pokemons.length === 0) {
-            table = <p>There is no Menu registered in the database</p>;
+            tableUser = <p>There is no Menu registered in the database</p>;
         } else {
-            table = <div>
+            tableUser = <div>
                 <table className="allMeals">
                     <thead>
                     <tr>
                         <th>Pokèmon's</th>
                         <th>Price</th>
                         <th>Type</th>
-
-                        <th>Options</th>
-
                     </tr>
                     </thead>
                     <tbody>
@@ -106,45 +78,26 @@ export class ItemList extends React.Component {
                             <td>{m.name}</td>
                             <td>{m.price}</td>
                             <td>{m.type}</td>
-
-                            <td>
-                                <Link to={"/edit?pokemonId=" + m.id}>
-                                    <button className="btn btnM">
-                                        <i className="fas fa-edit"></i>
-                                    </button>
-                                </Link>
-                                <button className="btn btnM" onClick={_ => this.deletePokemon(m.id)}>
-                                    <i className="fas fa-trash"></i>
-                                </button>
-                            </td>
                         </tr>
                     )}
                     </tbody>
                 </table>
             </div>; // end table
         }
-
         return (
-            <div>
 
+            <div>
+                <h2>Pokèmon loot: </h2>
                 <div>
-                    {table}
+                    <Link to={"/userSite"}>
+                        <button className="btn btnM">
+                            To User
+                        </button>
+                    </Link>
                 </div>
-                {user ? (
-                    <div>
-                        <Link to={"/create"}>
-                            <button className="btn btnM">New</button>
-                        </Link>
-                    </div>
-                ) : (
-                    <p>
-                    </p>
-                )}
+                {tableUser}
             </div>
 
         );// end return
     }// end render
-}
-
-
-export default withRouter(ItemList);
+}// end class

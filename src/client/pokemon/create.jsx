@@ -5,17 +5,17 @@ export class Create extends React.Component{
 
     constructor(props){
         super(props);
+
     }
 
-    //(pokedex, name, price, type)
 
-    onOk = async (pokedex, name, price, type, pokemonId) => {
+    onOk = async (pokedex, name, price, type, master, pokemonId) => {
 
 
         const url = "/api/pokemons";
 
         //note: here pokemonId is ignored
-        const payload = {pokedex: pokedex, name, price, type: type};
+        const payload = {pokedex: pokedex, name, price, type: type, master: master};
 
         let response;
 
@@ -44,6 +44,7 @@ export class Create extends React.Component{
                     name={""}
                     price={""}
                     type={""}
+                    master={""}
                     ok={"Create"}
                     okCallback={this.onOk}
                 />

@@ -8,6 +8,7 @@ const session = require("express-session");
 const authApi = require('./routes/auth-api');
 const Users = require('./db/users');
 
+
 const app = express();
 const ews = require('express-ws')(app);
 const WS = require('ws');
@@ -93,7 +94,7 @@ app.ws('/', function(ws, req) {
 });
 
 //***********************************************************//
-//*********************** end Chat **************************//
+//************************ Auth *****************************//
 //***********************************************************//
 
 app.use(session({
@@ -136,6 +137,10 @@ passport.deserializeUser(function (id, done) {
     }
 });
 
+//***********************************************************//
+//************************ Pokèmon **************************//
+//***********************************************************//
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -143,6 +148,18 @@ app.get('/api/pokemons', (req, res) => {
 
         res.json(repository.getAllPokemons());
 });
+
+app.get('/api/randomPokemons', (req, res) => {
+
+        res.json(repository.getSomePokemon());
+});
+
+
+app.get('/api/myPokemons', (req, res) => {
+
+        res.json(repository.getMyPokemon());
+});
+
 
 /*
     Note the use of ":" to represent a variable placeholder.
@@ -191,7 +208,7 @@ app.post('/api/pokemons', (req, res) => {
 
     const dto = req.body;
 
-    const id = repository.createPokemon(dto.day, dto.name, dto.price, dto.allergies);
+    const id = repository.createPokemon(dto.pokedex, dto.name, dto.price, dto.type, dto.master);
 
     res.status(201); //created
     res.header("location", "/api/pokemons/" + id);
