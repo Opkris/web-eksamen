@@ -2,16 +2,16 @@ import React from "react";
 import {Link, withRouter} from 'react-router-dom'
 
 
-class Dish extends React.Component {
+class Pokemon extends React.Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            day: this.props.day ? this.props.day : "",
+            pokedex: this.props.pokedex ? this.props.pokedex : "",
             name: this.props.name ? this.props.name : "",
             price: this.props.price ? this.props.price : "",
-            allergies: this.props.allergies ? this.props.allergies : ""
+            type: this.props.type ? this.props.type : ""
         };
 
         this.ok = this.props.ok ? this.props.ok : "Ok";
@@ -29,11 +29,11 @@ class Dish extends React.Component {
             here we make the call with AJAX, on which we have full control
          */
         const completed = await this.props.okCallback(
-            this.state.day,
+            this.state.pokedex,
             this.state.name,
             this.state.price,
-            this.state.allergies,
-            this.props.dishId);
+            this.state.type,
+            this.props.pokemonId);
 
         /*
             when the call is completed, we need to decide what to do.
@@ -50,12 +50,12 @@ class Dish extends React.Component {
             this.props.history.push('/');
         } else {
             //we use alert() just for simplicity for this example...
-            alert("Failed to create new Dish")
+            alert("Failed to create new Pokemon")
         }
     };
 
-    onDayChange = (event) => {
-        this.setState({day: event.target.value});
+    onPokedexChange = (event) => {
+        this.setState({pokedex: event.target.value});
     };
 
     onNameChange = (event) => {
@@ -66,8 +66,8 @@ class Dish extends React.Component {
         this.setState({price: event.target.value});
     };
 
-    onAllergiesChange = (event) => {
-        this.setState({allergies: event.target.value});
+    onTypeChange = (event) => {
+        this.setState({type: event.target.value});
     };
 
     render() {
@@ -76,32 +76,32 @@ class Dish extends React.Component {
             <div>
                 <form onSubmit={this.onFormSubmit}>
 
-                    <div className="inputTitle">Day:</div>
+                    <div className="inputTitle">Pokedex:</div>
                     <input
-                        placeholder={"What day is the meal?"}
-                        value={this.state.day.toLocaleLowerCase()}
-                        onChange={this.onDayChange}
+                        placeholder={"What pokedex is the pokèmon?"}
+                        value={this.state.pokedex.toLocaleLowerCase()}
+                        onChange={this.onPokedexChange}
                         className="dishInput"
                     />
                     <div className="inputTitle">Name:</div>
                     <input
-                        placeholder={"type the meal you want to add"}
+                        placeholder={"type the pokèmon you want to add"}
                         value={this.state.name}
                         onChange={this.onNameChange}
                         className="dishInput"
                     />
                     <div className="inputTitle">Price:</div>
                     <input
-                        placeholder={"Price of the meal"}
+                        placeholder={"Price of the pokèmon"}
                         value={this.state.price}
                         onChange={this.onPriceChange}
                         className="dishInput"
                     />
-                    <div className="inputTitle">Allergies:</div>
+                    <div className="inputTitle">Type:</div>
                     <input
-                        placeholder={"Type in allergies of the meal, if any"}
-                        value={this.state.allergies}
-                        onChange={this.onAllergiesChange}
+                        placeholder={"Type in type of the pokèmon, if any"}
+                        value={this.state.type}
+                        onChange={this.onTypeChange}
                         className="dishInput"
                     />
 
@@ -117,4 +117,4 @@ class Dish extends React.Component {
 /*
     Needed, because otherwise this.props.history would be undefined
  */
-export default withRouter(Dish);
+export default withRouter(Pokemon);

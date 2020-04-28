@@ -106,7 +106,7 @@ test("Test display meals using SuperTest", async () => {
     const displayedTable = await asyncCheckCondition(predicate, 3000, 200);
     expect(displayedTable).toBe(true);
 
-    const meals = rep.getAllMeals();
+    const meals = rep.getAllPokemons();
     const html = driver.html();
 
     for(let i=0; i<meals.length; i++){

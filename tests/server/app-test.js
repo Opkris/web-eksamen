@@ -94,7 +94,7 @@ test("Update meals", async () => {
 
     const name = "foo";
 
-    //create a dish
+    //create a pokemon
     const resPost = await request(app)
         .post('/api/meals')
         .send({day:"tuesday", name:name, price:"142", allergies: "none"})

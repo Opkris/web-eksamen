@@ -1,19 +1,21 @@
 import React from "react";
-import Drink from "./drink";
+import Pokemon from "./pokemon";
 
-export class CreateDrink extends React.Component{
+export class Create extends React.Component{
 
     constructor(props){
         super(props);
     }
 
-    onOk = async (name, price, drinkId) => {
+    //(pokedex, name, price, type)
+
+    onOk = async (pokedex, name, price, type, pokemonId) => {
 
 
-        const url = "/api/drinks";
+        const url = "/api/pokemons";
 
-        //note: here dishId is ignored
-        const payload = {name, price};
+        //note: here pokemonId is ignored
+        const payload = {pokedex: pokedex, name, price, type: type};
 
         let response;
 
@@ -28,6 +30,7 @@ export class CreateDrink extends React.Component{
         } catch (err) {
             return false;
         }
+
         return response.status === 201;
     };
 
@@ -35,10 +38,12 @@ export class CreateDrink extends React.Component{
 
         return(
             <div>
-                <h3>Create a New Drink</h3>
-                <Drink
+                <h3>Create a New Pokèmon</h3>
+                <Pokemon
+                    pokedex={""}
                     name={""}
                     price={""}
+                    type={""}
                     ok={"Create"}
                     okCallback={this.onOk}
                 />

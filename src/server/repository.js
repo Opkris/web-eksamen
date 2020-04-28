@@ -3,7 +3,7 @@
     But, here, for simplicity, we do all in memory.
  */
 
-// map from ids to meals
+// map from ids to Pokèmon
 const pokemons = new Map();
 
 //used to create unique ids
@@ -49,7 +49,7 @@ function createPokemon(pokedex, name, price, type){
         day: pokedex,
         name: name,
         price: price,
-        allergies: type
+        type: type
     };
 
     pokemons.set(id, pokemon);
@@ -82,5 +82,5 @@ function updatePokemon(pokemon){
     return true;
 }
 
-module.exports = {initPokemon: initPokemons, getAllMeals: getAllPokemon, createNewMeal: createPokemon,
-    getMeal: getPokemon, updateMeal: updatePokemon, deleteMeal: deletePokemon};
+module.exports = {initPokemon: initPokemons, getAllPokemons: getAllPokemon, createPokemon: createPokemon,
+    getPokemon: getPokemon, updatePokemon: updatePokemon, deletePokemon: deletePokemon};

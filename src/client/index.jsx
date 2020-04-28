@@ -2,10 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
-import {Create} from "./dish/create";
-import {CreateDrink} from "./drink/createDrink";
-import {Edit} from "./dish/edit";
-import {EditDrink} from "./drink/editDrink";
+import {Create} from "./pokemon/create";
+import {Edit} from "./pokemon/edit";
 import {Home} from "./home";
 import Login from "./signUp-login/login";
 import SignUp from "./signUp-login/signup";
@@ -129,8 +127,6 @@ render() {
                     <Route exact path="/edit" component={Edit}/>
                     <Route exact path="/chat" component={Chat}/>
                     <Route exact path="/create" component={Create}/>
-                    <Route exact path="/editDrink" component={EditDrink}/>
-                    <Route exact path="/createDrink" component={CreateDrink}/>
                     <Route component={this.notFound}/>
                 </Switch>
             </div>

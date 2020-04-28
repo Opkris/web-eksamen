@@ -139,9 +139,9 @@ passport.deserializeUser(function (id, done) {
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('/api/meals', (req, res) => {
+app.get('/api/pokemons', (req, res) => {
 
-        res.json(repository.getAllMeals());
+        res.json(repository.getAllPokemons());
 });
 
 /*
@@ -149,15 +149,15 @@ app.get('/api/meals', (req, res) => {
     Here we return a specific book with a specific id, eg
     "http://localhost:8080/books/42"
  */
-app.get('/api/meals/:id', (req, res) => {
+app.get('/api/pokemons/:id', (req, res) => {
 
-    const meal = repository.getMeal(req.params["id"]);
+    const pokemon = repository.getPokemon(req.params["id"]);
 
-    if (!meal) {
+    if (!pokemon) {
         res.status(404);
         res.send()
     } else {
-        res.json(meal);
+        res.json(pokemon);
     }
     /*
         Either "send()" or "json()" needs to be called, otherwise the
@@ -170,9 +170,9 @@ app.get('/api/meals/:id', (req, res) => {
 /*
     Handle HTTP DELETE request on a book specified by id
  */
-app.delete('/api/meals/:id', (req, res) => {
+app.delete('/api/pokemons/:id', (req, res) => {
 
-    const deleted = repository.deleteMeal(req.params.id);
+    const deleted = repository.deletePokemon(req.params.id);
     if (deleted) {
         res.status(204);
     } else {
@@ -183,22 +183,22 @@ app.delete('/api/meals/:id', (req, res) => {
 });
 
 /*
-    Create a new meal. The id will be chosen by the server.
+    Create a new pokèmon. The id will be chosen by the server.
     Such method should return the "location" header telling
     where such book can be retrieved (ie its URL)
  */
-app.post('/api/meals', (req, res) => {
+app.post('/api/pokemons', (req, res) => {
 
     const dto = req.body;
 
-    const id = repository.createNewMeal(dto.day, dto.name, dto.price, dto.allergies);
+    const id = repository.createPokemon(dto.day, dto.name, dto.price, dto.allergies);
 
     res.status(201); //created
-    res.header("location", "/api/meals/" + id);
+    res.header("location", "/api/pokemons/" + id);
     res.send();
 });
 
-app.put('/api/meals/:id', (req, res) => {
+app.put('/api/pokemons/:id', (req, res) => {
 
     if(req.params.id !== req.body.id){
         res.status(409);
@@ -206,7 +206,7 @@ app.put('/api/meals/:id', (req, res) => {
         return;
     }
 
-    const updated = repository.updateMeal(req.body);
+    const updated = repository.updatePokemon(req.body);
 
     if (updated) {
         res.status(204);

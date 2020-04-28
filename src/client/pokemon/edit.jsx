@@ -1,5 +1,5 @@
 import React from "react";
-import Dish from "./dish";
+import Pokemon from "./pokemon";
 
 export class Edit extends React.Component{
 
@@ -7,26 +7,26 @@ export class Edit extends React.Component{
         super(props);
 
         this.state = {
-            dish: null,
+            pokemon: null,
             error: null
         };
 
-        this.dishId = new URLSearchParams(window.location.search).get("dishId");
+        this.pokemonId = new URLSearchParams(window.location.search).get("pokemonId");
 
-        if(this.dishId === null){
-            this.state.error = "Unspecified meal id";
+        if(this.pokemonId === null){
+            this.state.error = "Unspecified pokemon id";
         }
     }
 
     componentDidMount(){
         if(this.state.error === null) {
-            this.fetchDish();
+            this.fetchPokemons();
         }
     }
 
-    async fetchDish(){
+    async fetchPokemons(){
 
-        const url = "/api/meals/" + this.dishId;
+        const url = "/api/pokemons/" + this.pokemonId;
 
         let response;
         let payload;
@@ -37,8 +37,8 @@ export class Edit extends React.Component{
         } catch (err) {
             //Network error: eg, wrong URL, no internet, etc.
             this.setState({
-                error: "ERROR when retrieving meal: " + err,
-                dish: null
+                error: "ERROR when retrieving pokemon: " + err,
+                pokemon: null
             });
             return;
         }
@@ -46,23 +46,23 @@ export class Edit extends React.Component{
         if (response.status === 200) {
             this.setState({
                 error: null,
-                dish: payload
+                pokemon: payload
             });
         } else {
             this.setState({
                 error: "Issue with HTTP connection: status code " + response.status,
-                dish: null
+                pokemon: null
             });
         }
     }
 
 
-    onOk = async (day, name, price, allergies, id) => {
+    onOk = async (pokedex, name, price, type, id) => {
 
 
-        const url = "/api/meals/"+id;
+        const url = "/api/pokemons/"+id;
 
-        const payload = {id, day, name, price, allergies};
+        const payload = {id, pokedex, name, price, type};
 
         let response;
 
@@ -87,24 +87,24 @@ export class Edit extends React.Component{
         if(this.state.error !== null){
             return(
                 <div>
-                    <p>Cannot edit Meal. {this.state.error}</p>
+                    <p>Cannot edit Pokèmon. {this.state.error}</p>
                 </div>
             );
         }
 
-        if(this.state.dish === null){
+        if(this.state.pokemon === null){
             return(<p>Loading...</p>);
         }
 
         return(
             <div>
-                <h3>Edit Dish</h3>
-                <Dish
-                    day={this.state.dish.day}
-                    name={this.state.dish.name}
-                    price={this.state.dish.price}
-                    allergies={this.state.dish.allergies}
-                    dishId={this.dishId}
+                <h3>Edit Pokèmon</h3>
+                <Pokemon
+                    pokedex={this.state.pokemon.pokedex}
+                    name={this.state.pokemon.name}
+                    price={this.state.pokemon.price}
+                    type={this.state.pokemon.type}
+                    pokemonId={this.pokemonId}
                     ok={"Update"}
                     okCallback={this.onOk}
                 />

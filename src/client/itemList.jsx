@@ -1,22 +1,20 @@
 import React from "react";
 import {Link, withRouter} from "react-router-dom";
-import {Chat} from "./chat";
 
-export class ItemList extends React.Component{
+export class ItemList extends React.Component {
 
 
     constructor(props) {
         super(props);
 
         this.state = {
-            drinks: null,
-            meals: null,
+            pokemons: null,
             error: null,
         };
     }
 
     componentDidMount() {
-        this.fetchMeals();
+        this.fetchPokemon();
         if (this.props.user) {
             this.props.fetchAndUpdateUserInfo();
         }
@@ -24,9 +22,9 @@ export class ItemList extends React.Component{
     }
 
 
-    async fetchMeals() {
+    async fetchPokemon() {
 
-        const url = "/api/meals";
+        const url = "/api/pokemons";
 
         let response;
         let payload;
@@ -37,8 +35,8 @@ export class ItemList extends React.Component{
         } catch (err) {
             //Network error: eg, wrong URL, no internet, etc.
             this.setState({
-                error: "ERROR when retrieving list of meals: " + err,
-                meals: null
+                error: "ERROR when retrieving list of Pokèmon's: " + err,
+                pokemons: null
             });
             return;
         }
@@ -46,20 +44,20 @@ export class ItemList extends React.Component{
         if (response.status === 200) {
             this.setState({
                 error: null,
-                meals: payload
+                pokemons: payload
             });
         } else {
             this.setState({
                 error: "Issue with HTTP connection: status code " + response.status,
-                meals: null
+                pokemons: null
             });
         }
     }
 
 
-    deleteMeal = async (id) => {
+    deletePokemon = async (id) => {
 
-        const url = "/api/meals/" + id;
+        const url = "/api/pokemons/" + id;
 
         let response;
 
@@ -75,73 +73,62 @@ export class ItemList extends React.Component{
             return false;
         }
 
-        this.fetchMeals();
+        this.fetchPokemon();
 
         return true;
     };
 
-
     render() {
 
-        const user = this.props.user;
-        let table_monday;
+        let table;
 
 
         if (this.state.error !== null) {
-            table_monday = <p>{this.state.error}</p>;
-        } else if (this.state.meals === null || this.state.meals.length === 0) {
-            table_monday = <p>There is no Menu registered in the database</p>;
+            table = <p>{this.state.error}</p>;
+        } else if (this.state.pokemons === null || this.state.pokemons.length === 0) {
+            table = <p>There is no Menu registered in the database</p>;
         } else {
-            table_monday = <div>
+            table = <div>
                 <table className="allMeals">
                     <thead>
                     <tr>
                         <th>Pokèmon's</th>
                         <th>Price</th>
                         <th>Type</th>
-                        {user ? (
-                            <th>Options</th>
-                        ) : (
-                            <p></p>
-                        )}
+
+                        <th>Options</th>
+
                     </tr>
                     </thead>
                     <tbody>
-                    {this.state.meals.map(m =>
+                    {this.state.pokemons.map(m =>
                         <tr key={"key_" + m.id} className="oneMeal">
                             <td>{m.name}</td>
                             <td>{m.price}</td>
-                            <td>{m.allergies}</td>
+                            <td>{m.type}</td>
 
-                            {user ? (
-                                <td>
-                                    <Link to={"/edit?dishId=" + m.id}>
-                                        <button className="btn btnM">
-                                            <i className="fas fa-edit"></i>
-                                        </button>
-                                    </Link>
-                                    <button className="btn btnM" onClick={_ => this.deleteMeal(m.id)}>
-                                        <i className="fas fa-trash"></i>
+                            <td>
+                                <Link to={"/edit?pokemonId=" + m.id}>
+                                    <button className="btn btnM">
+                                        <i className="fas fa-edit"></i>
                                     </button>
-                                </td>
-                            ) : (
-                                <p></p>
-                            )}
+                                </Link>
+                                <button className="btn btnM" onClick={_ => this.deletePokemon(m.id)}>
+                                    <i className="fas fa-trash"></i>
+                                </button>
+                            </td>
                         </tr>
                     )}
                     </tbody>
                 </table>
-
             </div>; // end table
-
-
-        }// end else
+        }
 
         return (
             <div>
 
                 <div>
-                    {table_monday}
+                    {table}
                 </div>
                 {user ? (
                     <div>
@@ -158,5 +145,6 @@ export class ItemList extends React.Component{
         );// end return
     }// end render
 }
+
 
 export default withRouter(ItemList);
