@@ -1,4 +1,3 @@
-
 /*
     Here we "simulate" a database with in-memory Map.
     Furthermore, we do not deal with the "proper" handling of
@@ -9,26 +8,26 @@
 const users = new Map();
 
 
-function getUser(id){
+function getUser(id) {
 
     return users.get(id);
 }
 
 
-function verifyUser(id, password){
+function verifyUser(id, password) {
 
     const user = getUser(id);
 
-    if(!user){
+    if (!user) {
         return false;
     }
 
     return user.password === password;
 }
 
-function createUser(id, password,){
+function createUser(id, password,) {
 
-    if(getUser(id)){
+    if (getUser(id)) {
         return false;
     }
 
@@ -37,16 +36,39 @@ function createUser(id, password,){
         id: id,
         password: password,
         balance: 1000,
-        myOwnPokemons: {
+        usersPokemons: [{
             pokedex: "001",
             name: "Bulbasaur",
             price: "99",
-            type: "grass & Poison",
-            master: "",
+            type: [
+                "Grass",
+                " Poison"
+            ],
+            master: id,
+        },{
+            id: 6,
+            pokedex: "006",
+            name: "Charizard",
+            price: 1089,
+            type: [
+                "Fire",
+                " Flying"
+            ],
+            master: id,
+        }, {
+            id: 21,
+            pokedex: "065",
+            name: "Alakazam",
+            price: 2599,
+            type: [
+                "Psychic",
+            ],
+            master: id
         },
+        ]
     };
 
-    console.log(user.myOwnPokemons);
+    console.log(user.usersPokemons);
     console.log(user.id);
     console.log(user.balance);
 
@@ -55,32 +77,32 @@ function createUser(id, password,){
 }
 
 
-function getUserPokemon(){
+function getUserPokemon() {
 
-    return Array.from(users.myOwnPokemons.values());
+    return Array.from(users.usersPokemons.values());
 }
 
 
-function resetAllUsers(){
+function resetAllUsers() {
     users.clear();
 }
 
-function transferMoney(senderId, amount){
+function transferMoney(senderId, amount) {
 
     console.log("Sender" + senderId + " amount: " + amount);
     amount = parseInt(amount);
 
-    if(isNaN(amount) || amount <= 0){
+    if (isNaN(amount) || amount <= 0) {
         return false;
     }
 
     const sender = users.get(senderId);
 
-    if(!sender){
+    if (!sender) {
         return false;
     }
 
-    if(sender.balance < amount){
+    if (sender.balance < amount) {
         return false;
     }
 
@@ -88,7 +110,6 @@ function transferMoney(senderId, amount){
 
     return true;
 }
-
 
 
 module.exports = {getUser, verifyUser, createUser, resetAllUsers, transferMoney, getUserPokemon};

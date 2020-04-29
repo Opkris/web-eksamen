@@ -12,7 +12,7 @@ export class LootBox extends React.Component {
             // sendTo: "",
             amountToSend: "",
             balance: null,
-            myOwnPokemons: null,
+            usersPokemons: null,
             id: null,
             errorMsg: null,
             pokemons: null,
@@ -192,7 +192,7 @@ export class LootBox extends React.Component {
                 <div className="signupArea">
                     <p>Your Pokemons: {this.props.id} ID</p>
                     <h3>Your currently have: {this.state.balance} Pokèmon Dollars</h3>
-                    <p>Your Pokemons: {this.state.myOwnPokemons} Pokèmon's</p>
+                    <p>Your Pokemons: {this.state.usersPokemons} Pokèmon's</p>
 
 
                     <p>Transfer money</p>

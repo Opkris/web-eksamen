@@ -11,12 +11,15 @@ export class UserSite extends React.Component {
         this.state = {
             pokemons: null,
             balance: null,
+            id: null,
+            mPokemon: null,
             error: null,
         };
     }
 
     componentDidMount() {
         this.fetchPokemon();
+        this.updateBalance();
         if (this.props.user) {
             this.props.fetchAndUpdateUserInfo();
         }
@@ -55,6 +58,50 @@ export class UserSite extends React.Component {
     }
 
 
+
+    async updateBalance() {
+        const url = "/api/user";
+
+        let response;
+
+        try {
+            response = await fetch(url);
+        } catch (err) {
+            this.setState({
+                errorMsg: "ERROR when retrieving balance: " + err,
+                balance: null,
+                id: null,
+                mPokemons: null
+            });
+            return;
+        }
+
+        if (response.status === 401) {
+            //we are not logged in, or session did timeout
+            this.props.updateLoggedInUser(null);
+            return;
+        }
+
+        if (response.status === 200) {
+            const payload = await response.json();
+
+            this.setState({
+                errorMsg: null,
+                balance: payload.balance,
+                id: payload.id,
+                mPokemon: payload.usersPokemons.size
+            });
+
+            this.props.updateLoggedInUser(payload.userId);
+        } else {
+            this.setState({
+                errorMsg: "Issue with HTTP connection: status code " + response.status,
+                balance: null,
+                id: null,
+                mPokemon: null
+            });
+        }
+    }
 
     render() {
         let tableUser;
@@ -97,6 +144,8 @@ export class UserSite extends React.Component {
 
             <div>
                 <p>balance: {this.state.balance}</p>
+                <p>id: {this.state.id}</p>
+                <p>Pokèmon: {this.state.mPokemon}</p>
                 <h2>Pokèmon UserSite</h2>
                     <div>
                         <Link to={"/lootBox"}>

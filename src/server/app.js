@@ -15,7 +15,8 @@ const WS = require('ws');
 
 
 Users.createUser("Kristoffer", "1");
-Users.createUser("Bank", "11");
+Users.createUser("Bank", "1");
+Users.createUser("1", "1");
 //to handle JSON payloads
 app.use(bodyParser.json());
 
