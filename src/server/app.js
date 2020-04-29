@@ -24,77 +24,77 @@ app.use(express.static('public'));
 
 //***********************************************************//
 //*************************** Chat **************************//
-//***********************************************************//
-let counter = 0;
-
-const messages = [];
-
-
-app.get('/api/messages', (req, res) => {
-
-    const since = req.query["since"];
-
-    const data = messages;
-
-    if (since) {
-        res.json(data.filter(m => m.id > since));
-    } else {
-        res.json(data);
-    }
-});
-
-
-app.post('/api/messages', (req, res) => {
-
-    const dto = req.body;
-
-    const id = counter++;
-
-    const msg = {id: id, author: dto.author, text: dto.text};
-
-    messages.push(msg);
-
-    res.status(201); //created
-    res.send();
-
-    const nclients = ews.getWss().clients.size;
-    console.log("Going to broadcast message to " + nclients +" clients");
-
-    ews.getWss().clients.forEach((client) => {
-        if (client.readyState === WS.OPEN) {
-            const json = JSON.stringify(msg);
-            console.log("Broadcasting to client: " + JSON.stringify(msg));
-            client.send(json);
-        } else {
-            console.log("Client not ready");
-        }
-    });
-});
-
-
-app.ws('/', function(ws, req) {
-    console.log('Established a new WS connection');
-    const numberOfClients = ews.getWss().clients.size;
-    console.log('Going to broadcast message to ' + numberOfClients + ' clients');
-
-
-    ews.getWss().clients.forEach((client) => {
-        if (client.readyState === WS.OPEN) {
-            const json = JSON.stringify(msg);
-
-            console.log('Broadcasting to client: ' + JSON.stringify(msg));
-            client.send(json);
-        } else {
-            console.log('Client not ready');
-        }
-    });
-
-    ews.getWss().clients.forEach((client) => {
-        const data = JSON.stringify({userCount: n});
-
-        client.send(data);
-    });
-});
+// //***********************************************************//
+// let counter = 0;
+//
+// const messages = [];
+//
+//
+// app.get('/api/messages', (req, res) => {
+//
+//     const since = req.query["since"];
+//
+//     const data = messages;
+//
+//     if (since) {
+//         res.json(data.filter(m => m.id > since));
+//     } else {
+//         res.json(data);
+//     }
+// });
+//
+//
+// app.post('/api/messages', (req, res) => {
+//
+//     const dto = req.body;
+//
+//     const id = counter++;
+//
+//     const msg = {id: id, author: dto.author, text: dto.text};
+//
+//     messages.push(msg);
+//
+//     res.status(201); //created
+//     res.send();
+//
+//     const nclients = ews.getWss().clients.size;
+//     console.log("Going to broadcast message to " + nclients +" clients");
+//
+//     ews.getWss().clients.forEach((client) => {
+//         if (client.readyState === WS.OPEN) {
+//             const json = JSON.stringify(msg);
+//             console.log("Broadcasting to client: " + JSON.stringify(msg));
+//             client.send(json);
+//         } else {
+//             console.log("Client not ready");
+//         }
+//     });
+// });
+//
+//
+// app.ws('/', function(ws, req) {
+//     console.log('Established a new WS connection');
+//     const numberOfClients = ews.getWss().clients.size;
+//     console.log('Going to broadcast message to ' + numberOfClients + ' clients');
+//
+//
+//     ews.getWss().clients.forEach((client) => {
+//         if (client.readyState === WS.OPEN) {
+//             const json = JSON.stringify(msg);
+//
+//             console.log('Broadcasting to client: ' + JSON.stringify(msg));
+//             client.send(json);
+//         } else {
+//             console.log('Client not ready');
+//         }
+//     });
+//
+//     ews.getWss().clients.forEach((client) => {
+//         const data = JSON.stringify({userCount: n});
+//
+//         client.send(data);
+//     });
+// });
 
 //***********************************************************//
 //************************ Auth *****************************//
@@ -151,7 +151,6 @@ app.post("/api/transfers", (req, res) => {
     }
 
     const dto = req.body;
-
     const from = req.user.id;
     const to = dto.to;
     const amount = dto.amount;
@@ -166,7 +165,7 @@ app.post("/api/transfers", (req, res) => {
         And, as such, in "theory" it should always be correct...
      */
 
-    const transferred = Repository.transferMoney(from, to, amount);
+    const transferred = Users.transferMoney(from, amount);
 
     /*
         In general, we would not need to support
@@ -231,6 +230,8 @@ app.get('/api/randomPokemons', (req, res) => {
 
 app.get('/api/myPokemons', (req, res) => {
 
+
+        // res.json(Users.getUserPokemon());
         res.json(repository.getMyPokemon());
 });
 
@@ -240,16 +241,11 @@ app.get('/api/myPokemons', (req, res) => {
     Here we return a specific book with a specific id, eg
     "http://localhost:8080/books/42"
  */
-app.get('/api/pokemons/:id', (req, res) => {
+app.get('/api/pokemonsUser', (req, res) => {
 
-    const pokemon = repository.getPokemon(req.params["id"]);
+    console.log("/api/pokemons says hello");
+        res.json(Users.getUserPokemon());
 
-    if (!pokemon) {
-        res.status(404);
-        res.send()
-    } else {
-        res.json(pokemon);
-    }
     /*
         Either "send()" or "json()" needs to be called, otherwise the
         call of the API will hang waiting for the HTTP response.
@@ -260,53 +256,53 @@ app.get('/api/pokemons/:id', (req, res) => {
 
 /*
     Handle HTTP DELETE request on a book specified by id
- */
-app.delete('/api/pokemons/:id', (req, res) => {
-
-    const deleted = repository.deletePokemon(req.params.id);
-    if (deleted) {
-        res.status(204);
-    } else {
-        //this can happen if book already deleted or does not exist
-        res.status(404);
-    }
-    res.send();
-});
+//  */
+// app.delete('/api/pokemons/:id', (req, res) => {
+//
+//     const deleted = repository.deletePokemon(req.params.id);
+//     if (deleted) {
+//         res.status(204);
+//     } else {
+//         //this can happen if book already deleted or does not exist
+//         res.status(404);
+//     }
+//     res.send();
+// });
 
 /*
     Create a new pokèmon. The id will be chosen by the server.
     Such method should return the "location" header telling
     where such book can be retrieved (ie its URL)
- */
-app.post('/api/pokemons', (req, res) => {
-
-    const dto = req.body;
-
-    const id = repository.createPokemon(dto.pokedex, dto.name, dto.price, dto.type, dto.master);
-
-    res.status(201); //created
-    res.header("location", "/api/pokemons/" + id);
-    res.send();
-});
-
-app.put('/api/pokemons/:id', (req, res) => {
-
-    if(req.params.id !== req.body.id){
-        res.status(409);
-        res.send();
-        return;
-    }
-
-    const updated = repository.updatePokemon(req.body);
-
-    if (updated) {
-        res.status(204);
-    } else {
-        //this can happen if entity did not exist
-        res.status(404);
-    }
-    res.send();
-});
+//  */
+// app.post('/api/pokemons', (req, res) => {
+//
+//     const dto = req.body;
+//
+//     const id = repository.createPokemon(dto.pokedex, dto.name, dto.price, dto.type, dto.master);
+//
+//     res.status(201); //created
+//     res.header("location", "/api/pokemons/" + id);
+//     res.send();
+// });
+//
+// app.put('/api/pokemons/:id', (req, res) => {
+//
+//     if(req.params.id !== req.body.id){
+//         res.status(409);
+//         res.send();
+//         return;
+//     }
+//
+//     const updated = repository.updatePokemon(req.body);
+//
+//     if (updated) {
+//         res.status(204);
+//     } else {
+//         //this can happen if entity did not exist
+//         res.status(404);
+//     }
+//     res.send();
+// });
 
 /** --------- Routes ---------**/
 app.use('/api', authApi);

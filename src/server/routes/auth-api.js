@@ -53,11 +53,12 @@ router.get('/user', function (req, res) {
     res.status(200).json({
 
             id: req.user.id,
-            balance: req.user.balance
+            balance: req.user.balance,
+            myOwnPokemons: req.user.myOwnPokemons,
         }
 
     );
-    console.log("auth-api.js, get/user ..." + req.user.id + " balance: " + req.user.balance)
+    console.log("auth-api.js, get/user ..." + req.user.id + " balance: " + req.user.balance, "pokèmon's : " + req.user.myOwnPokemons)
 });
 
 

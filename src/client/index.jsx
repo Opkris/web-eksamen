@@ -25,33 +25,34 @@ class App extends React.Component {
 
     componentDidMount() {
         this.fetchAndUpdateUserInfo();
-
-
-        let protocol = "ws:";
-        if (window.location.protocol.toLowerCase() === "https:") {
-            protocol = "wss:";
-        }
-
-        this.socket = new WebSocket(protocol + "//" + window.location.host);
-
-        this.socket.onmessage = (event => {
-            const dto = JSON.parse(event.data);
-
-            if (!dto || !dto.userCount) {
-                this.setState({userCount: "ERROR"});
-                return;
-            }
-            this.setState({userCount: dto.userCount});
-        });
     }
 
-    componentWillUnmount() {
-        this.socket.close();
-    }
+    //
+    //     let protocol = "ws:";
+    //     if (window.location.protocol.toLowerCase() === "https:") {
+    //         protocol = "wss:";
+    //     }
+    //
+    //     this.socket = new WebSocket(protocol + "//" + window.location.host);
+    //
+    //     this.socket.onmessage = (event => {
+    //         const dto = JSON.parse(event.data);
+    //
+    //         if (!dto || !dto.userCount) {
+    //             this.setState({userCount: "ERROR"});
+    //             return;
+    //         }
+    //         this.setState({userCount: dto.userCount});
+    //     });
+    // }
+    //
+    // componentWillUnmount() {
+    //     this.socket.close();
+    // }
 
 
     fetchAndUpdateUserInfo = async () => {
-        console.log("index.jsx, inside fetchAndUpdateUserInfo..." );
+        console.log("index.jsx, inside fetchAndUpdateUserInfo...");
         const url = "/api/user";
 
         let response;
@@ -125,8 +126,18 @@ class App extends React.Component {
 
                         <Route exact path="/" component={Home}/>
                         <Route exact path="/edit" component={Edit}/>
-                        <Route exact path="/lootBox" component={LootBox}/>
-                        <Route exact path="/userSite" component={UserSite}/>
+
+                        <Route exact path="/lootBox"
+                               render={props => <LootBox {...props}
+                                                      user={this.state.user}
+                                                      userCount={this.state.userCount}
+                                                      fetchAndUpdateUserInfo={this.fetchAndUpdateUserInfo}/>}/>
+
+                        <Route exact path="/userSite"
+                               render={props => <UserSite {...props}
+                                                      user={this.state.user}
+                                                      userCount={this.state.userCount}
+                                                      fetchAndUpdateUserInfo={this.fetchAndUpdateUserInfo}/>}/>
                         <Route exact path="/chat" component={Chat}/>
                         <Route exact path="/create" component={Create}/>
                         <Route component={this.notFound}/>

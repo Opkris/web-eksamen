@@ -15,6 +15,7 @@ const myPokemonArray = [];
 
 const pokemonsArray = [
     {
+        id: 1,
         pokedex: "001",
         name: "Bulbasaur",
         price: "99",
@@ -25,6 +26,7 @@ const pokemonsArray = [
         master: "",
     },
     {
+        id: 2,
         pokedex: "002",
         name: "Ivysaur",
         price: "189",
@@ -35,6 +37,7 @@ const pokemonsArray = [
         master: "",
     },
     {
+        id: 3,
         pokedex: "003",
         name: "Venusaur",
         price: "1089",
@@ -45,6 +48,7 @@ const pokemonsArray = [
         master: "",
     },
     {
+        id: 4,
         pokedex: "004",
         name: "Charmander",
         price: 99,
@@ -54,6 +58,7 @@ const pokemonsArray = [
         master: "",
     },
     {
+        id: 5,
         pokedex: "005",
         name: "Charmelon",
         price: 199,
@@ -63,6 +68,7 @@ const pokemonsArray = [
         master: "",
     },
     {
+        id: 6,
         pokedex: "006",
         name: "Charizard",
         price: 1089,
@@ -73,6 +79,7 @@ const pokemonsArray = [
         master: "",
     },
     {
+        id: 7,
         pokedex: "007",
         name: "Squirtle",
         price: 99,
@@ -82,6 +89,7 @@ const pokemonsArray = [
         master: "",
     },
     {
+        id: 8,
         pokedex: "008",
         name: "Wartortle",
         price: 99,
@@ -91,6 +99,7 @@ const pokemonsArray = [
         master: "",
     },
     {
+        id: 9,
         pokedex: "009",
         name: "Blastoise",
         price: 99,
@@ -100,6 +109,7 @@ const pokemonsArray = [
         master: "",
     },
     {
+        id: 10,
         pokedex: "010",
         name: "Caterpie",
         price: 99,
@@ -109,6 +119,7 @@ const pokemonsArray = [
         master: "",
     },
     {
+        id: 11,
         pokedex: "011",
         name: "Metapod",
         price: 99,
@@ -118,6 +129,7 @@ const pokemonsArray = [
         master: "",
     },
     {
+        id: 12,
         pokedex: "012",
         name: "Butterfree",
         price: 99,
@@ -128,6 +140,7 @@ const pokemonsArray = [
         master: "",
     },
     {
+        id: 13,
         pokedex: "013",
         name: "Weedle",
         price: 99,
@@ -137,6 +150,7 @@ const pokemonsArray = [
         master: "",
     },
     {
+        id: 14,
         pokedex: "014",
         name: "Kakuna",
         price: 99,
@@ -147,6 +161,7 @@ const pokemonsArray = [
         master: "",
     },
     {
+        id: 15,
         pokedex: "015",
         name: "Beedrill",
         price: 99,
@@ -157,7 +172,8 @@ const pokemonsArray = [
         master: "",
     },
     {
-        pokedex: "16",
+        id: 16,
+        pokedex: "016",
         name: "Pidgey",
         price: 99,
         type: [
@@ -167,6 +183,7 @@ const pokemonsArray = [
         master: "",
     },
     {
+        id: 17,
         pokedex: "017",
         name: "Pidgeotto",
         price: 99,
@@ -177,12 +194,40 @@ const pokemonsArray = [
         master: "",
     },
     {
+        id: 18,
         pokedex: "018",
         name: "Pidgeot",
         price: 99,
         type: [
             "Normal",
             " Flying"
+        ],
+        master: "",
+    }, {
+        id: 19,
+        pokedex: "063",
+        name: "Abra",
+        price: 299,
+        type: [
+            "Psychic",
+        ],
+        master: "",
+    }, {
+        id: 20,
+        pokedex: "064",
+        name: "Kadabra",
+        price: 999,
+        type: [
+            "Psychic"
+        ],
+        master: "",
+    }, {
+        id: 21,
+        pokedex: "065",
+        name: "Alakazam",
+        price: 2599,
+        type: [
+            "Psychic",
         ],
         master: "",
     },

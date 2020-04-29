@@ -55,39 +55,28 @@ function createUser(id, password,){
 }
 
 
+function getUserPokemon(){
+
+    return Array.from(users.myOwnPokemons.values());
+}
+
+
 function resetAllUsers(){
     users.clear();
 }
 
-// function reportEndOfMatch(userId, isVictory){
-//
-//     const user = getUser(userId);
-//     if(! user){
-//         throw "Invalid userId: " + userId;
-//     }
-//
-//     if(isVictory) {
-//         user.victories++;
-//     } else {
-//         user.defeats++;
-//     }
-// }
+function transferMoney(senderId, amount){
 
-
-
-function transferMoney(senderId, receiverId, amount){
-
-    console.log("Sender" + senderId + " receiver: " + receiverId + " amount: " + amount);
+    console.log("Sender" + senderId + " amount: " + amount);
     amount = parseInt(amount);
 
-    if(isNaN(amount) || amount <= 0 || senderId === receiverId){
+    if(isNaN(amount) || amount <= 0){
         return false;
     }
 
     const sender = users.get(senderId);
-    const receiver = users.get(receiverId);
 
-    if(!sender || !receiver){
+    if(!sender){
         return false;
     }
 
@@ -96,11 +85,10 @@ function transferMoney(senderId, receiverId, amount){
     }
 
     sender.balance -= amount;
-    receiver.balance += amount;
 
     return true;
 }
 
 
 
-module.exports = {getUser, verifyUser, createUser, resetAllUsers, transferMoney};
+module.exports = {getUser, verifyUser, createUser, resetAllUsers, transferMoney, getUserPokemon};

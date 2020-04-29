@@ -12,6 +12,8 @@ export class LootBox extends React.Component {
             // sendTo: "",
             amountToSend: "",
             balance: null,
+            myOwnPokemons: null,
+            id: null,
             errorMsg: null,
             pokemons: null,
             error: null,
@@ -188,22 +190,14 @@ export class LootBox extends React.Component {
             <div>
 
                 <div className="signupArea">
-                    <h2>Your currently have: {this.state.balance} Pokèmon Dollars</h2>
-                    <h2>Your new have: {this.state.balance -= 500} Pokèmon Dollars</h2>
-                    <h2>Your new have: {this.state.balance -= 200} Pokèmon Dollars</h2>
+                    <p>Your Pokemons: {this.props.id} ID</p>
+                    <h3>Your currently have: {this.state.balance} Pokèmon Dollars</h3>
+                    <p>Your Pokemons: {this.state.myOwnPokemons} Pokèmon's</p>
+
 
                     <p>Transfer money</p>
 
-                    <form method={"post"} action={"/api/transfers"}>
-                        {/*To:{" "}*/}
-                        {/*<input*/}
-                        {/*    type="text"*/}
-                        {/*    name="to"*/}
-                        {/*    value={this.state.sendTo}*/}
-                        {/*    onChange={this.onSendToChange}*/}
-                        {/*    className="lastInput"*/}
-                        {/*/>*/}
-                        <br />
+                    <form method={"get"} action={"/api/transfers"}>
                         Amount:{" "}
                         <input
                             type="text"

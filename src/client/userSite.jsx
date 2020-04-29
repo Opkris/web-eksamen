@@ -24,6 +24,7 @@ export class UserSite extends React.Component {
 
     async fetchPokemon() {
 
+        // const url = "/api/pokemonsUser";
         const url = "/api/myPokemons";
         let response;
         let payload;
@@ -61,7 +62,7 @@ export class UserSite extends React.Component {
         if (this.state.error !== null) {
             tableUser = <p>{this.state.error}</p>;
         } else if (this.state.pokemons === null || this.state.pokemons.length === 0) {
-            tableUser = <p>There is no Menu registered in the database</p>;
+            tableUser = <p>There is no Pokêmon's registered in the database</p>;
         } else {
             console.log("userSite.jsx, Hello World " + this.state.name);
              tableUser = <div>
@@ -105,10 +106,10 @@ export class UserSite extends React.Component {
                         </Link>
                     </div>
                 {tableUser}
-                <div className="chat">
-                    <h2>Chat</h2>
-                    <Chat/>
-                </div>
+                {/*<div className="chat">*/}
+                {/*    <h2>Chat</h2>*/}
+                {/*    <Chat/>*/}
+                {/*</div>*/}
             </div>
 
         );// end return

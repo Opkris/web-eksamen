@@ -119,10 +119,10 @@ export class Home extends React.Component {
                     <h2>Pokèmon Available</h2>
                     {table}
                 </div>
-                <div className="chat">
-                    <h2>Chat</h2>
-                    <Chat/>
-                </div>
+            {/*    <div className="chat">*/}
+            {/*        <h2>Chat</h2>*/}
+            {/*        <Chat/>*/}
+            {/*    </div>*/}
             </div>
 
         );// end return
